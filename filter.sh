@@ -35,7 +35,9 @@ FILTERNAME="filter"
 SEQNUM=10
 INC=5
 IP_LIST=""
+RADB="whois.radb.net"
 WHOISSERVER="whois.radb.net"
+
 IP_VERSION="4"
 CRAZY="0"
 
@@ -90,12 +92,12 @@ if [[ $# -lt 1 ]]
 fi
 
 # Do we have an AS-SET or an ASN?
-IS_SET=$(whois -h whois.radb.net $1 | grep -i ^as-set: | awk -F: '{print $1}')
+IS_SET=$(whois -h ${RADB} $1 | grep -i ^as-set: | awk -F: '{print $1}')
 
 # If we've got an AS-SET, use the handy !i and ,1 commands on RADB
 if [[ "as-set" == "$IS_SET" ]]
 then
-	AS_LIST=$(whois -h whois.radb.net \!i$1,1 | sed '/^\[/d' | sed 2\!d)
+	AS_LIST=$(whois -h ${RADB} \!i$1,1 | sed '/^\[/d' | sed 2\!d)
 else
 	AS_LIST=$1
 fi

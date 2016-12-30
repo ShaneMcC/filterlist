@@ -92,7 +92,7 @@ if [[ $# -lt 1 ]]
 fi
 
 # Do we have an AS-SET or an ASN?
-IS_SET=$(whois -h ${RADB} $1 | grep -i ^as-set: | awk -F: '{print $1}')
+IS_SET=$(whois -h whois.radb.net $1 | grep -i ^as-set: | awk -F: '{print $1}' | sort -u)
 
 # If we've got an AS-SET, use the handy !i and ,1 commands on RADB
 if [[ "as-set" == "$IS_SET" ]]
